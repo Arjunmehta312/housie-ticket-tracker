@@ -70,4 +70,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.8"/>
 
+    <Button
+        android:id="@+id/winningPatternsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:text="Winning Patterns Guide"
+        android:onClick="showWinningPatterns"
+        app:layout_constraintTop_toBottomOf="@id/viewTicketsButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.8"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

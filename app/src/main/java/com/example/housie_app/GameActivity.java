@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class GameActivity extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     
     private Set<Integer> calledNumbers = new HashSet<>();
     private List<String> wonPatterns = new ArrayList<>();
+    private Map<String, String> patternEmojis = new HashMap<>();
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,49 @@ public class GameActivity extends AppCompatActivity {
         ticketsRecyclerView.setAdapter(adapter);
         
         markNumberButton.setOnClickListener(v -> markCalledNumber());
+        
+        initializePatternEmojis();
+    }
+    
+    private void initializePatternEmojis() {
+        // Basic patterns
+        patternEmojis.put("Top Line", "🥇");
+        patternEmojis.put("Centre Line", "🎯");
+        patternEmojis.put("Bottom Line", "🏁");
+        patternEmojis.put("Four Corners", "🔹");
+        patternEmojis.put("Six Corners", "🔶");
+        patternEmojis.put("Full House", "🏆");
+        
+        // Number range patterns
+        patternEmojis.put("Breakfast", "🍳");
+        patternEmojis.put("Lunch", "🍔");
+        patternEmojis.put("Dinner", "🍽️");
+        patternEmojis.put("Straight Brunch", "🍽️");
+        patternEmojis.put("Reverse Brunch", "🍝");
+        
+        // Position-based patterns
+        patternEmojis.put("Twins", "👯");
+        patternEmojis.put("Reverse Twins", "👯‍♂️");
+        patternEmojis.put("Triplets", "👨‍👩‍👦");
+        patternEmojis.put("Reverse Triplets", "👨‍👩‍👧");
+        patternEmojis.put("Ladder", "🪜");
+        patternEmojis.put("Reverse Ladder", "↕️");
+        patternEmojis.put("Lover's Lane", "💑");
+        patternEmojis.put("Reverse Lover's Lane", "💏");
+        patternEmojis.put("Tennis", "🎾");
+        patternEmojis.put("Stumps", "🏏");
+        patternEmojis.put("Round the World", "🌎");
+        patternEmojis.put("Letter H", "Ⓗ");
+        
+        // Quick patterns
+        patternEmojis.put("Quick-12", "⏱️");
+        patternEmojis.put("Quick-13", "⌚");
+        patternEmojis.put("Quick-14", "⏰");
+        
+        // Line combinations
+        patternEmojis.put("Top & Centre Line", "⬆️");
+        patternEmojis.put("Centre & Bottom Line", "⬇️");
+        patternEmojis.put("Top & Bottom Line", "↕️");
     }
     
     private void markCalledNumber() {
@@ -124,13 +170,15 @@ public class GameActivity extends AppCompatActivity {
     }
     
     private void showWinningPatternDialog(String ticketId, String pattern, int position) {
+        String emoji = patternEmojis.getOrDefault(pattern, "🎉");
+        
         new AlertDialog.Builder(this)
-                .setTitle("Winning Pattern!")
-                .setMessage("Ticket " + ticketId + " has won: " + pattern)
+                .setTitle("WINNER! " + emoji)
+                .setMessage("Congratulations!\n\nTicket " + ticketId + " has won: " + pattern + "\n\nCall out your win now!")
                 .setPositiveButton("View Ticket", (dialog, which) -> {
                     ticketsRecyclerView.scrollToPosition(position);
                 })
-                .setNegativeButton("Continue", null)
+                .setNegativeButton("Continue Playing", null)
                 .show();
     }
 } 
